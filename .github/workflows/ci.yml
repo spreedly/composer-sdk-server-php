@@ -13,20 +13,28 @@ jobs:
   test:
     name: Test (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-latest
+    container: php:${{ matrix.php-version }}-cli
     strategy:
       fail-fast: false
       matrix:
         # Mirror the `php` floor in composer.json (>=8.2) through current stable.
         php-version: ["8.2", "8.3", "8.4"]
     steps:
+      # The official images ship without git/unzip, which checkout and Composer use.
+      - name: Install system packages
+        run: apt-get update && apt-get install -y --no-install-recommends git unzip
+
       - uses: actions/checkout@v4
 
-      - name: Set up PHP ${{ matrix.php-version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: curl, json
-          coverage: none
+      # Composer's documented checksum-verified install.
+      - name: Install Composer
+        run: |
+          EXPECTED="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          ACTUAL="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+          [ "$EXPECTED" = "$ACTUAL" ] || { echo 'Composer installer checksum mismatch'; exit 1; }
+          php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer
+          rm composer-setup.php
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
