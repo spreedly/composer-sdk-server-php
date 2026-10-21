@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         # Mirror the `php` floor in composer.json (>=8.2) through current stable.
-        php-version: ["8.2", "8.3", "8.4"]
+        php-version: ["8.2", "8.3", "8.4", "8.5"]
     steps:
       # The official images ship without git/unzip, which checkout and Composer use.
       - name: Install system packages

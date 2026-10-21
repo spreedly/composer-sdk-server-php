@@ -109,9 +109,7 @@ class Utilities
             $response = curl_exec($ch);
             $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $error = curl_error($ch);
-            
-            curl_close($ch);
-            
+
             if ($error) {
                 Logger::error('There was an error making a request.', $error)->log();
                 return [
