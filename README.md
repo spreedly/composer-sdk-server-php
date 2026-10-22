@@ -36,10 +36,11 @@ Check out the [Client SDK](https://npmjs.com/package/@dodgeball/trust-sdk-client
 
 ## Installation
 
-Use `composer` to install the Composer SDK:
+The package isn't on Packagist yet. Use `composer` to install the Composer SDK from GitHub:
 
 ```sh
-composer require spreedly/composer-sdk-server
+composer config repositories.composer-sdk-server vcs https://github.com/spreedly/composer-sdk-server-php
+composer require spreedly/composer-sdk-server:dev-main
 ```
 
 ## Usage
