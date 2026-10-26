@@ -129,7 +129,7 @@ jobs:
           WAIT_SECONDS: 600
         run: |
           DEADLINE=$((SECONDS + WAIT_SECONDS))
-          until REFERENCE="$(curl -sSf "https://repo.packagist.org/p2/${NAME}.json" | jq -r --arg name "${NAME}" --arg version "${VERSION}.0" '.packages[$name][]? | select(.version_normalized == $version) | .dist.reference')" && [[ -n "${REFERENCE}" ]]; do
+          until REFERENCE="$(curl -sSf "https://repo.packagist.org/p2/${NAME}.json" | jq -r --arg name "${NAME}" --arg version "${VERSION}" '.packages[$name][]? | select((.version | ltrimstr("v")) == $version) | .dist.reference')" && [[ -n "${REFERENCE}" ]]; do
             if (( SECONDS >= DEADLINE )); then
               echo "Packagist doesn't list ${NAME} ${VERSION} after ${WAIT_SECONDS} seconds"
               exit 1
