@@ -30,17 +30,16 @@ The Composer Server SDK for PHP makes integration with the Composer API easy and
 
 ## Related
 
-Check out the [Client SDK](https://npmjs.com/package/@dodgeball/trust-sdk-client) for how to integrate Composer into your frontend applications.
+Check out the [Client SDK](https://www.npmjs.com/package/@spreedly/composer-sdk-client) for how to integrate Composer into your frontend applications.
 
 [Composer examples](https://github.com/spreedly/composer-examples) has a runnable example server for this SDK in `server/php`, and a web client that calls it.
 
 ## Installation
 
-The package isn't on Packagist yet. Use `composer` to install the Composer SDK from GitHub:
+Use `composer` to install the Composer SDK:
 
 ```sh
-composer config repositories.composer-sdk-server vcs https://github.com/spreedly/composer-sdk-server-php
-composer require spreedly/composer-sdk-server:dev-main
+composer require spreedly/composer-sdk-server
 ```
 
 ## Usage
@@ -214,7 +213,7 @@ The SDK logs through PHP's `error_log()`. At the default `INFO` level it writes 
 
 | Parameter | Required | Description |
 | --- | --- | --- |
-| `sourceToken` | Either this or `sessionId` | A token representing the device making the request. Obtained from the [Client SDK](https://npmjs.com/package/@dodgeball/trust-sdk-client). |
+| `sourceToken` | Either this or `sessionId` | A token representing the device making the request. Obtained from the [Client SDK](https://www.npmjs.com/package/@spreedly/composer-sdk-client). |
 | `sessionId` | Either this or `sourceToken` | The current session ID of the request. |
 | `userId` | No | The ID of the user in your database, once you know it (for example, after registration). |
 | `useVerificationId` | No | `checkpoint` only. The ID of a verification the user already completed. See [useVerification](#useverification). |
