@@ -4,7 +4,7 @@ namespace Spreedly\ComposerSdk;
 
 class Utilities
 {
-    private const SDK_VERSION = '1.0.0';
+    private const SDK_VERSION = '1.0.1';
 
     /**
      * Fields that carry end-user information and are masked before anything is logged.
